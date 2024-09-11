@@ -1,31 +1,32 @@
 <template>
-	<div class="#keypad-enter">test</div>
-	<div id="#keypad-enter">test</div>
 	<v-app>
 		<v-main>
 			<v-container>
 				<!-- 電話番号表示 -->
-				<v-row>
-					<v-col v-for="i in 11" :key="i" cols="1">
-						<div class=".o-input--num-display">
+				<v-row class="numberList">
+					<v-col v-for="i in 11" :key="i" cols="1" class="number">
+						<div class=".o-input--num-display d-flex align-center justify-center fill-height">
 							{{ phoneNumber[i - 1] }}
 						</div>
 					</v-col>
 				</v-row>
 				<!-- 入力ボタン -->
-				<v-row>
+				<v-row class="btnList ">
 					<v-col v-for="i in 9" :key="i" cols="4">
-						<v-btn color="primary" @click="addPhoneNumber(i)" :class="`#keypad-${i}`"> {{ i }}</v-btn>
+						<v-btn color="primary" @click="addPhoneNumber(i)" :class="`#keypad-${i}`"
+							class="d-flex align-center justify-center fill-height"> {{ i }}</v-btn>
 					</v-col>
 					<v-col cols="4">
-						<v-btn color="primary" @click="deletePhoneNumber" :class="'#keypad-delete'">D</v-btn>
+						<v-btn color="primary" @click="deletePhoneNumber" :class="'#keypad-delete'"
+							class="d-flex align-center justify-center fill-height">D</v-btn>
 					</v-col>
 					<v-col cols="4">
-						<v-btn color="primary" @click="addPhoneNumber(0)">0</v-btn>
+						<v-btn color="primary" @click="addPhoneNumber(0)"
+							class="d-flex align-center justify-center fill-height">0</v-btn>
 					</v-col>
 					<v-col cols="4">
 						<v-btn color="primary" @click="sendPhoneNumber" :disabled="enterDisabled"
-							:class="'#keypad-enter'">E</v-btn>
+							:class="'#keypad-enter'" class="d-flex align-center justify-center fill-height">E</v-btn>
 					</v-col>
 				</v-row>
 			</v-container>
@@ -68,13 +69,39 @@ watch(phoneNumber, () => {
 });
 
 function sendPhoneNumber() {
+	// 電話番号を一つの文字列に変換
+	let sendNumber = '';
+	for (const num of phoneNumber) {
+		sendNumber += num;
+	}
 	// 送信処理
-	alert(phoneNumber);
+	alert(sendNumber);
 }
 </script>
 
 <style scoped>
 .o-input--num-display {
 	font-size: 20px;
+}
+
+.number {
+	background-color: rgb(245, 245, 245);
+	height: 4em;
+	width: auto;
+	margin: auto;
+}
+
+.numberList {
+	width: 500px;
+	height: 75px;
+	margin-top: 10px;
+	background-color: rgb(209, 208, 208);
+}
+
+.btnList {
+	width: 500px;
+	height: 300px;
+	margin-top: 10px;
+	background-color: rgb(230, 229, 229);
 }
 </style>
